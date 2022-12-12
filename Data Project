@@ -109,3 +109,9 @@ SELECT DISTINCT B.BillingCountry, A.Lastname, A.FirstName
     LEFT JOIN Chinook.customers A
     ON B.CustomerId = A.CustomerId
     ORDER BY BillingCountry;
+
+--Select the Invoice Total, Customer name, Country, and Sales Agent name for all invoices and customers
+SELECT emp.LastName AS AgentLastName, emp.Firstname AS AgentFirstName, cust.FirstName AS CustomerFirstName, cust.LastName AS CustomerLastName, cust.Country, inv.total
+FROM chinook.employees emp 
+JOIN chinook.Customers cust ON cust.SupportRepId = emp.EmployeeId
+JOIN chinook.Invoices Inv ON Inv.CustomerId = cust.CustomerId;
