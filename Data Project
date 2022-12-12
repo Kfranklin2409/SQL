@@ -115,3 +115,9 @@ SELECT emp.LastName AS AgentLastName, emp.Firstname AS AgentFirstName, cust.Firs
 FROM chinook.employees emp 
 JOIN chinook.Customers cust ON cust.SupportRepId = emp.EmployeeId
 JOIN chinook.Invoices Inv ON Inv.CustomerId = cust.CustomerId;
+
+--Select track name with invoice line ID
+SELECT t.Name, i.InvoiceLineId 
+    FROM tracks t
+    LEFT JOIN invoice_items i
+    ON t.TrackId=i.TrackId;
