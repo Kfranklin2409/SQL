@@ -102,3 +102,10 @@ SELECT A.Name AS Track_Name, E.Name AS Artist, B.Title AS Album_Title, C.Name AS
     LEFT OUTER JOIN artists E
     ON B.ArtistId = E.ArtistId
     ORDER BY E.ArtistId;
+
+--Select list of customers and their distinct billing countries  
+SELECT DISTINCT B.BillingCountry, A.Lastname, A.FirstName 
+    FROM chinook.Invoices B
+    LEFT JOIN Chinook.customers A
+    ON B.CustomerId = A.CustomerId
+    ORDER BY BillingCountry;
