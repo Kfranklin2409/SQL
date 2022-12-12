@@ -12,7 +12,7 @@ SELECT A.CustomerId, FirstName,
  GROUP BY A.CustomerId
 ;
  
--- Select the Sales Support Agent with the most sales
+-- Select the total number of Sales  for each Support Agent 
 SELECT SupportRepId,
        LastName,
        FirstName,
