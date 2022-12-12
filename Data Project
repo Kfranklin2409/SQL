@@ -1,4 +1,4 @@
-For this project, I downloaded a database that contained various data and multiple tables. I then performed analytical queries on the data to combine and obtain various data from the database.  
+For this project, I downloaded a database that contained various data about music download sales with multiple tables that incluced, but not limited to, artist, tracks, invoices, customers, and employeee among others. I then performed analytical queries on the data to combine and obtain various data from the database.  
 
 --Select specific location of customers, ID numbers, and their order totals
 SELECT A.CustomerId, FirstName,
