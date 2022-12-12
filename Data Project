@@ -1,5 +1,11 @@
 For this project, I downloaded a database that contained various data about music download sales with multiple tables that incluced, but not limited to, artist, tracks, invoices, customers, and employeee among others. I then performed analytical queries on the data to combine and obtain various data from the database.  
 
+--Select track name with invoice line ID
+SELECT t.Name, i.InvoiceLineId 
+    FROM tracks t
+    LEFT JOIN invoice_items i
+    ON t.TrackId=i.TrackId;
+    
 --Select specific location of customers, ID numbers, and their order totals
 SELECT A.CustomerId, FirstName,
        LastName,
@@ -65,6 +71,17 @@ SELECT LastName,
  GROUP BY A.CustomerId
  ORDER BY Order_Total DESC;
  
+ --Select which tracks were purchased by customers include the invoice and invoice total
+SELECT t.name AS Track_Name, cust.LastName, cust.FirstName, inv.InvoiceID, inv.total
+        FROM tracks t
+        JOIN invoice_items i
+        ON t.TrackId=i.TrackId
+        JOIN invoices inv
+        ON i.invoiceId=inv.invoiceId
+        JOIN customers cust
+        ON inv.CustomerId=cust.CustomerId
+        ORDER BY cust.customerId;
+ 
 -- Select sale support agents' total sales and total number of sales.
 SELECT A.LastName,
        A.Firstname,
@@ -79,7 +96,7 @@ SELECT A.LastName,
  GROUP BY A.EmployeeId
  ORDER BY Sales_Total DESC;
  
---Select all invoices and their totals for each sales support agent.
+--Select all invoices and their totals for each sales support agent
 SELECT A.LastName, A.FirstName, InvoiceId, InvoiceDate, total
     FROM employees A
         OUTER JOIN
@@ -116,8 +133,3 @@ FROM chinook.employees emp
 JOIN chinook.Customers cust ON cust.SupportRepId = emp.EmployeeId
 JOIN chinook.Invoices Inv ON Inv.CustomerId = cust.CustomerId;
 
---Select track name with invoice line ID
-SELECT t.Name, i.InvoiceLineId 
-    FROM tracks t
-    LEFT JOIN invoice_items i
-    ON t.TrackId=i.TrackId;
