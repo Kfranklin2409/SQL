@@ -1,0 +1,104 @@
+For this project, I downloaded a database that contained various data and multiple tables. I then performed analytical queries on the data to combine and obtain various data from the database. 
+
+--Select specific location of customers, ID numbers, and their order totals
+SELECT A.CustomerId, FirstName,
+       LastName,
+       Country,
+       SUM(Total) AS Order_Total
+  FROM chinook.customers A
+       LEFT OUTER JOIN
+       Invoices B ON A.CustomerId = B.CustomerId
+ WHERE Country = 'Brazil'
+ GROUP BY A.CustomerId
+;
+ 
+-- Select the Sales Support Agent with the most sales
+SELECT SupportRepId,
+       LastName,
+       FirstName,
+       COUNT(SupportRepId) AS Sales
+  FROM Employees
+       JOIN
+       customers ON customerS.SupportRepId = employees.EmployeeId
+ GROUP BY SupportRepId
+ ORDER BY sales DESC;
+
+--Select all customers of a specific sales support agent with phone numbers to send thank you messages
+SELECT FirstName,
+       LastName,
+       Phone,
+       SupportRepId
+  FROM customers
+ WHERE SupportRepId = 3 AND 
+       Phone != 'null'
+ ORDER BY LastName;
+ 
+-- Select all customers, their country, order totals, and sales support agent
+SELECT A.Lastname,
+       A.Firstname,
+       Country,
+       SUM(Total) AS Total_Order,
+       B.FirstName AS Rep_FirstName,
+       B.LastName AS Rep_LastName
+  FROM customers A
+       LEFT OUTER JOIN
+       employees B ON A.SupportRepId = B.EmployeeId
+       LEFT OUTER JOIN
+       invoices C ON C.CustomerId = A.CustomerId
+ GROUP BY A.CustomerId
+ ORDER BY Total_Order DESC;
+ 
+-- Select the total number of invoices From 2009 where the customer spent at least $10
+SELECT COUNT( * ) 
+  FROM Invoices
+ WHERE InvoiceDate LIKE '2009%' AND 
+       Total >= 10;
+       
+-- Select all customers, their total number of orders, and their total amount spent
+SELECT LastName,
+       FirstName,
+       Count(B.CustomerId) AS Number_of_Orders,
+       SUM(Total) AS Order_Total
+  FROM Customers A
+       LEFT OUTER JOIN
+       invoices B ON A.CustomerID = B.CustomerId
+ GROUP BY A.CustomerId
+ ORDER BY Order_Total DESC;
+ 
+-- Select sale support agents' total sales and total number of sales.
+SELECT A.LastName,
+       A.Firstname,
+       SUM(C.Total) AS Sales_Total,
+       COUNT(SupportRepId) AS Sales
+  FROM Employees A
+       LEFT OUTER JOIN
+       customers B ON A.EmployeeId = B.SupportRepId
+       LEFT OUTER JOIN
+       Invoices C ON B.CustomerId = C.CustomerId
+ WHERE title = 'Sales Support Agent'
+ GROUP BY A.EmployeeId
+ ORDER BY Sales_Total DESC;
+ 
+--Select all invoices and their totals for each sales support agent.
+SELECT A.LastName, A.FirstName, InvoiceId, InvoiceDate, total
+    FROM employees A
+        OUTER JOIN
+        customers B ON A.EmployeeId = B.SupportRepId
+        OUTER JOIN
+        Invoices C
+        ON B.CustomerId = C.CustomerId
+        WHERE title = 'Sales Support Agent'
+        ORDER BY A.LastName;
+        
+--Select all tracks, including its artist, album title, media type, and genre. 
+SELECT A.Name AS Track_Name, E.Name AS Artist, B.Title AS Album_Title, C.Name AS Media_Type, D.Name AS Genre
+    FROM tracks A
+    LEFT OUTER JOIN albums B
+    ON A.AlbumId = B.AlbumId
+    LEFT OUTER JOIN media_types C
+    ON A.MediaTypeId = C.MediaTypeId
+    LEFT OUTER JOIN genres D
+    ON A.GenreId = D.GenreId
+    LEFT OUTER JOIN artists E
+    ON B.ArtistId = E.ArtistId
+    ORDER BY E.ArtistId;
