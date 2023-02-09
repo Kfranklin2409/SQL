@@ -1,4 +1,7 @@
-
+/*
+    Quering data from Khan Academy Planetary Data
+    
+*/
 
 --Select all from database to see what data I could query and what ways I could aggregate the data
 SELECT * FROM solar_system_objects;
