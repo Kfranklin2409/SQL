@@ -26,8 +26,11 @@ SELECT body,
 SELECT body, 
     mean_radius, 
     ROUND(mean_radius_rel * 100) AS relative_percent 
+    
     FROM solar_system_objects 
+    
     GROUP BY -1 * ROUND(mean_radius_rel * 100) 
+    
     HAVING ROUND(mean_radius_rel * 100) >= 50;
 
 --Select the planets that have a mass greater than 150 and volume less than 1000 and grouping by a radius of greater than 4000 (Only 1 planet met the criteria)
@@ -35,8 +38,11 @@ SELECT body,
   mass, 
   volume 
   FROM solar_system_objects  
+  
   WHERE mass > 150 AND volume < 1000 
+  
   GROUP BY mass 
+  
   HAVING mean_radius > 4000;
 
 --Select the planets that have a mass greater than 150 and volume greater than 1000 and grouping by a radius of greater than 4000 (Six planets met this criteria)
@@ -45,6 +51,8 @@ body,
 mass, 
 volume 
 FROM solar_system_objects 
+
 WHERE mass > 150 AND volume > 1000 GROUP BY mass 
+
 HAVING mean_radius > 4000;
 
