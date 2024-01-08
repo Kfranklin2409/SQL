@@ -1,7 +1,7 @@
 For this project, I downloaded a database that contained various data about music download sales with multiple tables that incluced, but not limited to, artist, tracks, invoices, customers, and employeee among others. I then performed analytical queries on the data to combine and obtain various data from the database. The queries increase in depth from top to bottom. 
 
 --Select track name with invoice line ID
-```ruby
+``` ruby
 SELECT t.Name, i.InvoiceLineId 
     FROM tracks t
     LEFT JOIN invoice_items i
