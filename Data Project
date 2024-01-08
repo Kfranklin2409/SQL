@@ -2,12 +2,12 @@ For this project, I downloaded a database that contained various data about musi
 
 --Select track name with invoice line ID
 
-``` sql
+
 SELECT t.Name, i.InvoiceLineId 
     FROM tracks t
     LEFT JOIN invoice_items i
     ON t.TrackId=i.TrackId;
-```
+
     
 --Select specific location of customers, ID numbers, and their order totals
 SELECT A.CustomerId, FirstName,
