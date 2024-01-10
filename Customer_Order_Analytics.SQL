@@ -90,7 +90,7 @@ FROM BIT_DB.FebSales feb
 /*Select the product with most revenue in January and it's total amount*/
 SELECT 
 	product, 
-    SUM(quantity*price)
+	SUM(quantity*price)
 FROM BIT_DB.JanSales
 GROUP BY product 
 ORDER BY SUM(quantity*price) desc
