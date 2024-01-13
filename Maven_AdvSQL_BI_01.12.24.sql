@@ -1,9 +1,4 @@
-USE mavenfuzzyfactory;
 
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
--- Direct Traffic Analyzation 
 
 -- Source of ads ran w/ total sessions, orders, and conversion rate
 SELECT 
