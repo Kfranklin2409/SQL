@@ -2,7 +2,7 @@ USE mavenfuzzyfactory;
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-/*
+
 -- Direct Traffic Analyzation 
 
 -- Source of ads ran w/ total sessions, orders, and conversion rate
@@ -89,18 +89,6 @@ WHERE website_session_id BETWEEN 100000 AND 115000
 GROUP BY 1
 ORDER BY 2 DESC; -- arbitrary range
 
-SELECT 
-	utm_source,
-    utm_campaign,
-    utm_content,
-	http_referer,
-	COUNT(user_id)
-	-- COUNT(CASE    
-		-- WHEN http_referer = 'https://www.bsearch.com' AND utm_source IS NULL THEN website_session_id ELSE NULL END) AS 'bsearch_organic'
-FROM website_sessions
-WHERE utm_content IS NULL
-GROUP BY 1, 2, 3, 4
-;
 
 -- Pulling organic search traffic, direct type in, and paid brand search sessions by month with % of paid search nonbrand
 SELECT 
@@ -119,15 +107,15 @@ FROM website_sessions
 WHERE created_at < '2012-12-23'
 GROUP BY MONTH(DATE(created_at))
 ;
-*/
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-/*
+
 -- Mid Course Assessment Project
 
 -- created_at <= '2012-11-27'
 
 /* Q1 Gsearch seems to be the biggest driver of our business. Could you pull monthly trends for gsearch sessions
-and orders so that we can showcase the growth there? 
+and orders so that we can showcase the growth there? */
 
 SELECT 
 	MIN(DATE(ws.created_at)) AS Monthly_gsearch_trend, 
@@ -142,7 +130,7 @@ GROUP BY MONTH(DATE(ws.created_at))
 ;
 
 /* Q2 Next, it would be great to see a similar monthly trend for Gsearch, but this time splitting out nonbrand and
-brand campaigns separately. I am wondering if brand is picking up at all. If so, this is a good story to tell. 
+brand campaigns separately. I am wondering if brand is picking up at all. If so, this is a good story to tell. */
 
 SELECT 
 	MIN(DATE(ws.created_at)) AS Monthly_gsearch_trend, 
@@ -159,7 +147,7 @@ GROUP BY MONTH(DATE(ws.created_at))
 ;
 
 /* Q3 While we’re on Gsearch, could you dive into nonbrand, and pull monthly sessions and orders split by device type? 
-I want to flex our analytical muscles a little and show the board we really know our traffic sources. 
+I want to flex our analytical muscles a little and show the board we really know our traffic sources. */
 
 SELECT 
 	MIN(DATE(ws.created_at)) AS Monthly_gsearch_nonbrand_trend, 
@@ -177,7 +165,7 @@ GROUP BY MONTH(DATE(ws.created_at))
 ;
 
 /* Q4 I’m worried that one of our more pessimistic board members may be concerned about the large % of traffic from 4 Gsearch. 
-Can you pull monthly trends for Gsearch, alongside monthly trends for each of our other channels? 
+Can you pull monthly trends for Gsearch, alongside monthly trends for each of our other channels? */
 
 -- Viewing sources to determine channels 
 SELECT 
@@ -203,7 +191,7 @@ GROUP BY MONTH(DATE(ws.created_at))
 ;
 
 /* Q5 I’d like to tell the story of our website performance improvements over the course of the first 8 months.
-Could you pull session to order conversion rates, by month? 
+Could you pull session to order conversion rates, by month? */
 
 SELECT 
 	MIN(DATE(ws.created_at)) AS Month, 
@@ -216,7 +204,7 @@ LEFT JOIN orders o
 WHERE ws.created_at <= '2012-11-1'
 GROUP BY MONTH(DATE(ws.created_at));
 
-/* Q6 For the gsearch lander test, please estimate the revenue that test earned us (Hint: Look at the increase in CVR
+-- Q6 For the gsearch lander test, please estimate the revenue that test earned us (Hint: Look at the increase in CVR
 from the test (Jun 19 – Jul 28), and use nonbrand sessions and revenue since then to calculate incremental value) 
 
 SELECT 
@@ -302,7 +290,7 @@ FROM sessions_since_lander1_test;
 -- Results: ~50 extra orders per month! 
 
 /* Q7 For the landing page test you analyzed previously, it would be great to show a full conversion funnel from each
-of the two pages to orders. You can use the same time period you analyzed last time (Jun 19 – Jul 28).  
+of the two pages to orders. You can use the same time period you analyzed last time (Jun 19 – Jul 28). */
 
 -- created a subquery to flag what pages each session id saw and from what lander page
 
@@ -362,7 +350,7 @@ GROUP BY 1;
     
 /* Q8 I’d love for you to quantify the impact of our billing test, as well. Please analyze the lift generated from the test
 (Sep 10 – Nov 10), in terms of revenue per billing page session, and then pull the number of billing page sessions
-for the past month to understand monthly impact. 
+for the past month to understand monthly impact. */ 
 
 -- Create a query to view the billing version seen from the billing test timeframe
 -- Use above to create subquery to count sessions and billing revenue per billing page seen 
@@ -399,9 +387,9 @@ WHERE pageview_url IN ('/billing', '/billing-2')
 -- 1,194 billing session in past month
 -- LIFT:$8.51 per billing session
 -- VALUE OF BILLING TEST: $10,160 over the past month
-*/
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-/*
+
 -- Conversion Funnels Excercise
 
 SELECT 
@@ -602,9 +590,9 @@ FROM session_level_flags2;
 
 -- BUSINESS CONTEXT
 	-- We want to build a mini conversion funnel, from /lander-2 to /cart
-    -- We want to know how many people reach each step, and also dropoff rates
-    -- for simplicity of the demo, we're looking at /lander-2 traffic only
-    -- for simplicity, we're looking at customers who like Mr. Fuzzy only
+    	-- We want to know how many people reach each step, and also dropoff rates
+   	 -- for simplicity of the demo, we're looking at /lander-2 traffic only
+    	-- for simplicity, we're looking at customers who like Mr. Fuzzy only
 
 -- STEP 1: select all pageviews for relevant sessions
 -- STEP 2: identify each relevant pageview as the specific funnel step
@@ -667,9 +655,9 @@ SELECT
         
 FROM session_level_flags
 ;
-*/ 
+
 ---------------------------------------------------------------------------------------------------
-/*
+
 -- TEMPORARY TABLES
 
 -- STEP 1: finding the first website_pageview_id for the relevant sessions
@@ -911,9 +899,8 @@ GROUP BY  pageview_url
 ORDER BY pvs DESC
 ;
 
-*/ 
 ---------------------------------------------------------------------------------------------------
-/*
+
 -- Dates
 
 SELECT 
@@ -999,4 +986,3 @@ FROM nonbrand_test_sessions_w_landing_page nts
 		ON nts.website_session_id = ntb.website_session_id
 GROUP BY 1
 ;
-*/ 
