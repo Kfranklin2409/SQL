@@ -1,5 +1,7 @@
 USE mavenfuzzyfactory;
 
+-- Analyzing Cross-selling Performance for 2nd product being added to the '/cart' page. 
+
 SELECT
 	CASE
 		WHEN website_pageviews.created_at < '2013-09-25' THEN 'A.Pre_Cross_Sell'
